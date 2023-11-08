@@ -1,0 +1,29 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*.qmd"
+    - "**/*.qmd"
+    - "!code/"
+    - "!data/"
+    - "!output"
+
+website:
+  title: "rescanner"
+  navbar:
+    right:
+      - about.qmd
+      - icon: github
+        href: https://github.com/
+      - icon: twitter
+        href: https://twitter.com
+    background: "dark"
+    search: true
+
+format:
+  html:
+    theme: sandstone
+    css: styles.css
+
+
+

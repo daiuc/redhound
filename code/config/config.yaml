@@ -1,0 +1,67 @@
+
+#------------------- Sample Metadata -------------------#
+# sample names and ERR names
+samples: 
+  chRNA: config/samples-chRNA.tsv
+  mRNA: config/samples-mRNA.tsv
+
+
+#------------------- Alignment related -------------------#
+
+# reference genome fasta
+FA_HS38: "/project2/yangili1/cdai/genome_index/hs38/GRCh38.primary_assembly.genome.fa"
+
+# STAR 2.7.7a genome index
+STAR_INDEX_DIR: "/project2/yangili1/cdai/genome_index/hs38/STAR-2.7.7a"
+
+# VCF STAR wasp
+STAR_VCF: '/project2/yangili1/cdai/SNP/dbSNP_human_b151_hg38/STAR_wasp_common-snps-from_dbsnp151_hs38.vcf'
+
+
+#------------------- Variants related -------------------#
+
+# 1k genome phase3 variants with AF_AFR > 0.01 - include snps and indels
+KGP3_AF_AFR_GT_1PCT: "/project2/yangili1/cdai/rescanner/code/resources/1KGP/CCDG_14151_B01_GRM_WGS_2020-08-05_chr1-to-22.filtered.shapeit2-duohmm-phased.1percent.vcf.gz"
+
+# dbSNP 151, used for BaseRecalibrator or snpID annotation
+dbSNP: "/project2/yangili1/cdai/SNP/dbSNP_human_b151_hg38/dbSNP151-hs38-common-all.vcf.gz"
+
+
+
+
+
+
+
+# # rediportal database and header, used for bcftools annotate
+# DB: '/project2/yangili1/cdai/mRNA-editing/Data-shared/RADAR_from_REDIportal_hg38.bed.gz'
+# DB_HEADER: '/project2/yangili1/cdai/mRNA-editing/Data-shared/vcf_header_RADAR.txt'
+
+# GENCODE_GTF: /project2/yangili1/cdai/genome_index/hs38/gencode.v38.primary_assembly.annotation.gtf.gz
+
+# # gencode intron exon annotation
+# GENCODE: '/project2/yangili1/cdai/genome_index/hs38/gencode_exon_intron_v38_anno.bed' # old, but used on earlier part of pipeline
+# EXONS_INTRONS_UTRS: '/project2/yangili1/cdai/genome_index/hs38/gencode.v38.introns_exons_utrs.protein_miRNA_snoRNA_lincRNA_snRNA.bed'
+# INTRONS: '/project2/yangili1/cdai/genome_index/hs38/gencode_intron_v38_anno.bed'
+
+# # repeats annotation from repeat masker
+# REPEATS: '/project2/yangili1/cdai/mRNA-editing/Data-shared/UCSC_repeatMasker.bed'
+# REPEATS_LOOKUP: '/project2/yangili1/cdai/mRNA-editing/Data-shared/repeatMasker_lookup.tsv'
+
+# # simple repeats annotation
+# SIMPLE_REPEATS: '/project2/yangili1/cdai/mRNA-editing/Data-shared/simpleRepeats.bed'
+
+# # Homoplymer locations in Ch38
+# HOMOPOLYMER: '/project2/yangili1/cdai/mRNA-editing/Data-shared/hs38_homopolymer_ge5.bed'
+
+# # Non-coding RNA annotation (from Carlos on ~ 1/12/23)
+# # ncRNA: /project2/yangili1/cfbuenabadn/ChromatinSplicingQTLs/code/NonCodingRNA/annotation/NonCodingRNA.bed.gz
+# NCRNA: 'resources/ncRNA_annotation/NonCodingRNA.bed.gz'
+
+# # Bigwig
+# bigwig:
+#   chRNA_unstrand: '/project2/yangili1/bjf79/ChromatinSplicingQTLs/code/bigwigs/chRNA.Expression.Splicing'
+#   chRNA_strand: '/project2/yangili1/bjf79/ChromatinSplicingQTLs/code/bigwigs/chRNA.Expression.Splicing_stranded'
+
+
+
+

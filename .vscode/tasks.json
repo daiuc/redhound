@@ -1,0 +1,47 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Forward jupyter",
+            "type": "shell",
+            "command": "ssh -NL ${input:jPort}:${input:ipAddress}:${input:jPort} chaodai@${input:ipAddress}",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Forward rstudio",
+            "type": "shell",
+            "command": "ssh -NL ${input:rPort}:${input:ipAddress}:${input:rPort} chaodai@${input:ipAddress}",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent", // "always", "never", "silent"
+                "panel": "shared", // "shared", "dedicated", "new"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "ipAddress",
+            "description": "Enter IP Address",
+            "default": ""
+        },
+        {
+            "type": "promptString",
+            "id": "jPort",
+            "description": "Enter Jupyter Port",
+            "default": "9799"
+        },
+        {
+            "type": "promptString",
+            "id": "rPort",
+            "description": "Enter Jupyter Port",
+            "default": "8283"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+__default__:
+    partition: caslake # the partition you use
+    nodes: 1
+    ntasks: 1
+    cpu: 1
+    mem: 4000
+    output: "/dev/null"
+    job-name: "{rule}.{wildcards}"

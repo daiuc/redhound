@@ -1,0 +1,98 @@
+'''
+ADAR-MEDIATED A2I EDITNG QTL ANALYSES
+
+AUTHOR      : CHAO DAI
+EMAIL       : CHAODAI@UCHICAGO.EDU
+LAST UPDATE : 2023-01-14
+
+Main datasets:
+    - mRNA dataset of Geuvadis YRI samples
+    - chRNA dataset of Geuvadis YRI LCL cell lines
+
+'''
+
+import pandas as pd
+import os
+import sys
+
+
+configfile: 'config/config.yaml'
+
+wildcard_constraints:
+    dataset     = 'mRNA|chRNA',
+    population  = 'YRI', # modify to include other populations, e.g. TSI, CEU, EUR
+    indID       = '\w{2}\d{5}'
+    # DO NOT write `runID` constraints globally.
+
+
+#----------------------------------------------------------------------------
+# GLOBAL VARIABLES
+#----------------------------------------------------------------------------
+
+# chRNA sample lookup table
+chRNA_samples = (pd.read_csv(config["samples"]["chRNA"],
+    sep="\t", dtype={"IndID": str, "R1": str, "R2": str, "RepNumber": int, "sample_ID": str})
+    .set_index(["IndID", "RepNumber", "sample_ID", "R1", "R2"], drop=False).sort_index()
+)
+
+chRNA_RUNIDS = chRNA_samples.sample_ID.unique()
+chRNA_INDIDS = chRNA_samples.IndID.unique()
+
+# mRNA sample lookup table
+mRNA_samples = (pd.read_csv(
+    config["samples"]["mRNA"], sep="\t", dtype={"sample_name": str, "err_name": str})
+    .set_index(['sample_name', 'err_name'], drop=False).sort_index()
+)
+ 
+mRNA_RUNIDS = mRNA_samples.err_name.unique() 
+mRNA_INDIDS = mRNA_samples.sample_name.unique()
+ 
+CHROMS = ['chr' + str(i) for i in range(1,23)] + ['chrX', 'chrY']
+AUTOSOMES = ['chr' + str(i) for i in range(1,23)]
+
+CISWINDOWS = [str(w) for w in [10000, 100000, 1000000]]
+
+GWAS_TRAITS = ['Height', 'IBD', 'MS', 'RA']
+
+
+DS = ['mRNA']
+POPS = ['YRI']
+test_m_libs = ['ERR204930', 'ERR204843', 'ERR204971']
+test_m_indids = ['NA19095', 'NA19185']
+test_c_indids = ['NA19130', 'NA19160', 'NA19203']
+# INDS = mRNA_samples[mRNA_samples['err_name'].isin(LIBS)]['sample_name'].unique()
+
+#----------------------------------------------------------------------------
+# MODULES / RULES
+#----------------------------------------------------------------------------
+
+include: 'rules/alignment-polya.smk'
+include: 'rules/alignment-chrna.smk'
+include: 'rules/callA2I-polya.smk'
+include: 'rules/callA2I-chrna.smk'
+include: 'rules/filterA2I-polya.smk'
+# include: 'rules/callQTLs.smk'
+# include: 'rules/coloc.smk'
+# include: 'rules/splicing.smk'
+# include: 'rules/misc.smk'
+
+
+
+#----------------------------------------------------------------------------
+# SELECTED OUTPUT TARGETS
+#----------------------------------------------------------------------------
+
+localrules:
+    all 
+
+# for `rule all`:
+# - Do not write rules beyond qtltools perm pass. Because permuted phenotype
+#   and coloc are only needed to run on chRNA dataset.
+
+
+rule all:
+    input:
+        # expand('results/{dataset}/{population}/BQSR/{lib}_recal.bam', dataset=DS, population=POPS, lib=LIBS),
+        # expand("results/{dataset}/{population}/BCFCall/RemoveVariants/{indID}.tsv.gz", dataset=DS, population=POPS, indID=INDS),
+        # expand("results/{dataset}/{population}/HaplotypeCaller/raw/{indID}.vcf.gz", dataset=DS, population=POPS, indID=INDS),
+

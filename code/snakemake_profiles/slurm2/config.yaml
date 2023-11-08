@@ -1,0 +1,10 @@
+jobs: 70
+cores: 120
+cluster: "sbatch --partition {resources.partition} --account pi-jstaley -t {resources.time} -c {resources.cpu} --mem {resources.mem_mb} -e slurm_logs/{rule}%j.e -o slurm_logs/{rule}%j.o --job-name {rule}  "
+default-resources: [time=200, mem_mb=12000, cpu=1, partition=caslake]
+keep-going: True
+printshellcmds: True
+rerun-incomplete: True
+cluster-cancel: "scancel"
+## additional cluster args: --mail-type FAIL --mail-user chaodai@uchicago.edu
+##  --export=ALL,SHELL=/bin/bash
